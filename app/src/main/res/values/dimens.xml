@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- Corner radius -->
+    <dimen name="corner_radius_xs">4dp</dimen>
+    <dimen name="corner_radius_sm">8dp</dimen>
+    <dimen name="corner_radius_md">12dp</dimen>
+    <dimen name="corner_radius_lg">16dp</dimen>
+    <dimen name="corner_radius_xl">24dp</dimen>
+
+    <!-- Elevation -->
+    <dimen name="elevation_xs">2dp</dimen>
+    <dimen name="elevation_sm">4dp</dimen>
+    <dimen name="elevation_md">8dp</dimen>
+    <dimen name="elevation_lg">12dp</dimen>
+    <dimen name="elevation_xl">16dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_xs">10sp</dimen>
+    <dimen name="text_size_sm">12sp</dimen>
+    <dimen name="text_size_md">14sp</dimen>
+    <dimen name="text_size_lg">16sp</dimen>
+    <dimen name="text_size_xl">18sp</dimen>
+    <dimen name="text_size_xxl">20sp</dimen>
+    <dimen name="text_size_xxxl">24sp</dimen>
+
+    <!-- Icon sizes -->
+    <dimen name="icon_size_xs">16dp</dimen>
+    <dimen name="icon_size_sm">20dp</dimen>
+    <dimen name="icon_size_md">24dp</dimen>
+    <dimen name="icon_size_lg">32dp</dimen>
+    <dimen name="icon_size_xl">48dp</dimen>
+
+    <!-- Button heights -->
+    <dimen name="button_height_sm">32dp</dimen>
+    <dimen name="button_height_md">48dp</dimen>
+    <dimen name="button_height_lg">56dp</dimen>
+
+    <!-- Card specific -->
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="fab_size_extended">120dp</dimen>
+
+    <!-- Camera overlay -->
+    <dimen name="camera_overlay_margin">32dp</dimen>
+    <dimen name="camera_guide_width">300dp</dimen>
+    <dimen name="camera_guide_height">200dp</dimen>
+
+</resources>

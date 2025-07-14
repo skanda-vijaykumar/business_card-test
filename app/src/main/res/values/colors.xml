@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compatible Material Design 2 Colors -->
+
+    <!-- Primary Colors -->
+    <color name="primary_color">#6200EE</color>
+    <color name="primary_variant_color">#3700B3</color>
+    <color name="on_primary_color">#FFFFFF</color>
+    <color name="primary_container">#BB86FC</color>
+    <color name="on_primary_container">#000000</color>
+
+    <!-- Secondary Colors -->
+    <color name="secondary_color">#03DAC6</color>
+    <color name="secondary_variant_color">#018786</color>
+    <color name="on_secondary_color">#000000</color>
+    <color name="secondary_container">#A7F3D0</color>
+    <color name="on_secondary_container">#004D40</color>
+
+    <!-- Surface Colors -->
+    <color name="surface_color">#FFFFFF</color>
+    <color name="on_surface">#000000</color>
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="on_surface_variant">#757575</color>
+
+    <!-- Background -->
+    <color name="background_color">#FFFFFF</color>
+    <color name="on_background">#000000</color>
+
+    <!-- Error Colors -->
+    <color name="error_color">#B00020</color>
+    <color name="on_error_color">#FFFFFF</color>
+    <color name="error_container">#FDEAEA</color>
+    <color name="on_error_container">#B00020</color>
+
+    <!-- Outline -->
+    <color name="outline">#79747E</color>
+    <color name="outline_variant">#CAC4D0</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="primary_color_dark">#BB86FC</color>
+    <color name="on_primary_color_dark">#000000</color>
+    <color name="primary_container_dark">#3700B3</color>
+    <color name="on_primary_container_dark">#FFFFFF</color>
+    <color name="secondary_color_dark">#03DAC6</color>
+    <color name="on_secondary_color_dark">#000000</color>
+    <color name="secondary_container_dark">#005B4F</color>
+    <color name="on_secondary_container_dark">#FFFFFF</color>
+    <color name="surface_color_dark">#121212</color>
+    <color name="on_surface_dark">#FFFFFF</color>
+    <color name="surface_variant_dark">#1E1E1E</color>
+    <color name="on_surface_variant_dark">#E0E0E0</color>
+    <color name="background_color_dark">#121212</color>
+    <color name="on_background_dark">#FFFFFF</color>
+
+    <!-- Custom App Colors -->
+    <color name="camera_overlay">#80000000</color>
+    <color name="scan_guide_color">#00E676</color>
+    <color name="scan_success_color">#4CAF50</color>
+    <color name="scan_error_color">#F44336</color>
+
+    <!-- Quality Indicators -->
+    <color name="quality_high">#4CAF50</color>
+    <color name="quality_medium">#FF9800</color>
+    <color name="quality_low">#F44336</color>
+
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="warning_color">#FF9800</color>
+    <color name="info_color">#2196F3</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#6200EE</color>
+    <color name="gradient_end">#9C27B0</color>
+
+    <!-- MISSING COLORS - ADD THESE -->
+    <color name="shimmer_base">#F0F0F0</color>
+    <color name="shimmer_highlight">#FFFFFF</color>
+
+    <!-- Legacy colors (keep for compatibility) -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Alpha variants for overlays -->
+    <color name="black_alpha_50">#80000000</color>
+    <color name="white_alpha_50">#80FFFFFF</color>
+    <color name="primary_alpha_50">#806200EE</color>
+
+    <!-- Additional compatibility colors -->
+    <color name="colorPrimary">@color/primary_color</color>
+    <color name="colorPrimaryDark">@color/primary_variant_color</color>
+    <color name="colorAccent">@color/secondary_color</color>
+</resources>

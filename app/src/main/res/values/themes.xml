@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compatible Material Design 2 Theme -->
+    <style name="Theme.CardDetector" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_variant_color</item>
+        <item name="colorPrimaryVariant">@color/primary_variant_color</item>
+        <item name="colorOnPrimary">@color/on_primary_color</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant_color</item>
+        <item name="colorOnSecondary">@color/on_secondary_color</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/surface_color</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+
+        <!-- Background -->
+        <item name="android:colorBackground">@color/background_color</item>
+        <item name="colorOnBackground">@color/on_background</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/error_color</item>
+        <item name="colorOnError">@color/on_error_color</item>
+
+        <!-- Accent color (for compatibility) -->
+        <item name="colorAccent">@color/secondary_color</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Shape appearances -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.CardDetector.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.CardDetector.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.CardDetector.LargeComponent</item>
+    </style>
+
+    <!-- Dark theme variant -->
+    <style name="Theme.CardDetector.Dark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/primary_color_dark</item>
+        <item name="colorPrimaryDark">@color/primary_container_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_container_dark</item>
+        <item name="colorOnPrimary">@color/on_primary_color_dark</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/secondary_color_dark</item>
+        <item name="colorSecondaryVariant">@color/secondary_container_dark</item>
+        <item name="colorOnSecondary">@color/on_secondary_color_dark</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/surface_color_dark</item>
+        <item name="colorOnSurface">@color/on_surface_dark</item>
+
+        <!-- Background -->
+        <item name="android:colorBackground">@color/background_color_dark</item>
+        <item name="colorOnBackground">@color/on_background_dark</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Component Styles -->
+    <style name="ToolbarTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <!-- Shape Appearances -->
+    <style name="ShapeAppearance.CardDetector.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.CardDetector.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.CardDetector.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <!-- Image Shape -->
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="Widget.CardDetector.Button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.CardDetector.SmallComponent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="Widget.CardDetector.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.CardDetector.SmallComponent</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <!-- Card Styles -->
+    <style name="Widget.CardDetector.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearance">@style/ShapeAppearance.CardDetector.MediumComponent</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardCornerRadius">16dp</item>
+    </style>
+
+    <!-- FAB Styles -->
+    <style name="Widget.CardDetector.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="shapeAppearance">@style/ShapeAppearance.CardDetector.LargeComponent</item>
+        <item name="elevation">8dp</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="TextAppearance.CardDetector.Headline" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.CardDetector.Title" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.CardDetector.Body" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.CardDetector.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+</resources>
