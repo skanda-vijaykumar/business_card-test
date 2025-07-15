@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var responsesDao: ResponsesDao
     private var isFlashOn = false
     private var isProcessing = false
+    private var currentCardData: JSONObject? = null
 
     // API Configuration
     private val API_KEY = "eKQduRkL3J0Fc2hvtJPbRjirNj26nIclgEIVNd"
@@ -123,6 +124,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showResultsCard(data: JSONObject) {
+        // Store current card data for sharing
+        currentCardData = data
+        
         // Clear previous results
         binding.resultContainer.removeAllViews()
 
@@ -150,7 +154,12 @@ class MainActivity : AppCompatActivity() {
             "phone" to "Phone",
             "mobile_phone" to "Mobile",
             "website_link" to "Website",
-            "complete_address" to "Address"
+            "complete_address" to "Address",
+            "street" to "Street",
+            "state" to "State",
+            "country" to "Country",
+            "postal_code" to "Postal Code",
+            "fax_detail" to "Fax"
         )
 
         fields.forEach { (key, label) ->
@@ -232,11 +241,67 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun shareResult() {
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, "Shared business card data")
+        currentCardData?.let { data ->
+            val shareText = buildString {
+                append("=== BUSINESS CARD INFORMATION ===\n\n")
+                
+                // Company & Personal Info
+                val company = data.optString("company_name", "")
+                val firstName = data.optString("first_name", "")
+                val lastName = data.optString("last_name", "")
+                val jobTitle = data.optString("job_title", "")
+                
+                if (company.isNotEmpty()) append("Company: $company\n")
+                if (firstName.isNotEmpty() || lastName.isNotEmpty()) {
+                    append("Name: ${firstName.trim()} ${lastName.trim()}".trim() + "\n")
+                }
+                if (jobTitle.isNotEmpty()) append("Job Title: $jobTitle\n")
+                
+                append("\n=== CONTACT INFORMATION ===\n")
+                
+                // Contact Details
+                val email = data.optString("email_address", "")
+                val phone = data.optString("phone", "")
+                val mobile = data.optString("mobile_phone", "")
+                val website = data.optString("website_link", "")
+                val fax = data.optString("fax_detail", "")
+                
+                if (email.isNotEmpty()) append("Email: $email\n")
+                if (phone.isNotEmpty()) append("Phone: $phone\n")
+                if (mobile.isNotEmpty()) append("Mobile: $mobile\n")
+                if (website.isNotEmpty()) append("Website: $website\n")
+                if (fax.isNotEmpty()) append("Fax: $fax\n")
+                
+                // Address Information
+                val completeAddress = data.optString("complete_address", "")
+                val street = data.optString("street", "")
+                val state = data.optString("state", "")
+                val country = data.optString("country", "")
+                val postalCode = data.optString("postal_code", "")
+                
+                if (completeAddress.isNotEmpty() || street.isNotEmpty() || state.isNotEmpty() || 
+                    country.isNotEmpty() || postalCode.isNotEmpty()) {
+                    append("\n=== ADDRESS ===\n")
+                    if (completeAddress.isNotEmpty()) append("Address: $completeAddress\n")
+                    if (street.isNotEmpty()) append("Street: $street\n")
+                    if (state.isNotEmpty()) append("State: $state\n")
+                    if (country.isNotEmpty()) append("Country: $country\n")
+                    if (postalCode.isNotEmpty()) append("Postal Code: $postalCode\n")
+                }
+                
+                append("\n---\nExtracted by Nicomatic Cards")
+            }
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, shareText)
+                putExtra(Intent.EXTRA_SUBJECT, "Business Card - ${data.optString("company_name", "Contact Information")}")
+            }
+
+            startActivity(Intent.createChooser(shareIntent, "Share Business Card"))
+        } ?: run {
+            Toast.makeText(this, "No card data to share", Toast.LENGTH_SHORT).show()
         }
-        startActivity(Intent.createChooser(shareIntent, "Share business card"))
     }
 
     private fun saveResult() {
@@ -256,11 +321,24 @@ class MainActivity : AppCompatActivity() {
                     val bytes = ByteArray(buffer.remaining())
                     buffer.get(bytes)
 
-                    val compressedBytes = compressImage(bytes)
+                    val compressedBytes = compressImageOptimized(bytes)
                     val base64Image = Base64.encodeToString(compressedBytes, Base64.DEFAULT)
 
-                    saveImageToGallery(bytes)
-                    sendImageToAPI(base64Image)
+                    // Check payload size (1MB = 1,048,576 bytes)
+                    val payloadSize = base64Image.toByteArray().size
+                    Log.d(TAG, "Payload size: ${payloadSize / 1024}KB")
+                    
+                    if (payloadSize > 1_048_576) {
+                        // If still too large, compress more aggressively
+                        val recompressedBytes = compressImageAggressively(bytes)
+                        val recompressedBase64 = Base64.encodeToString(recompressedBytes, Base64.DEFAULT)
+                        saveImageToGallery(bytes)
+                        sendImageToAPI(recompressedBase64)
+                    } else {
+                        saveImageToGallery(bytes)
+                        sendImageToAPI(base64Image)
+                    }
+                    
                     image.close()
                 }
 
@@ -272,9 +350,64 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun compressImage(imageBytes: ByteArray): ByteArray {
+    private fun compressImageOptimized(imageBytes: ByteArray): ByteArray {
         return try {
             val originalBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            
+            // Higher max dimension for better quality
+            val maxDimension = 1024
+            val scale = minOf(
+                maxDimension.toFloat() / originalBitmap.width,
+                maxDimension.toFloat() / originalBitmap.height,
+                1.0f
+            )
+
+            val newWidth = (originalBitmap.width * scale).toInt()
+            val newHeight = (originalBitmap.height * scale).toInt()
+
+            val resizedBitmap = Bitmap.createScaledBitmap(
+                originalBitmap, newWidth, newHeight, true
+            )
+
+            val outputStream = ByteArrayOutputStream()
+            // Higher quality compression
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream)
+
+            val finalBytes = outputStream.toByteArray()
+            
+            // Check if base64 size would exceed 1MB
+            val base64Size = (finalBytes.size * 4 / 3) + 4 // Approximate base64 size
+            if (base64Size > 900_000) { // Leave some buffer
+                // Reduce quality if too large
+                outputStream.reset()
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 85, outputStream)
+                val reducedBytes = outputStream.toByteArray()
+                
+                if (resizedBitmap != originalBitmap) {
+                    resizedBitmap.recycle()
+                }
+                originalBitmap.recycle()
+                
+                reducedBytes
+            } else {
+                if (resizedBitmap != originalBitmap) {
+                    resizedBitmap.recycle()
+                }
+                originalBitmap.recycle()
+                
+                finalBytes
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error compressing image: ${e.message}")
+            imageBytes
+        }
+    }
+
+    private fun compressImageAggressively(imageBytes: ByteArray): ByteArray {
+        return try {
+            val originalBitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            
+            // More aggressive compression
             val maxDimension = 800
             val scale = minOf(
                 maxDimension.toFloat() / originalBitmap.width,
@@ -290,7 +423,7 @@ class MainActivity : AppCompatActivity() {
             )
 
             val outputStream = ByteArrayOutputStream()
-            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
 
             val finalBytes = outputStream.toByteArray()
 
@@ -301,7 +434,7 @@ class MainActivity : AppCompatActivity() {
 
             finalBytes
         } catch (e: Exception) {
-            Log.e(TAG, "Error compressing image: ${e.message}")
+            Log.e(TAG, "Error compressing image aggressively: ${e.message}")
             imageBytes
         }
     }
@@ -469,7 +602,7 @@ class MainActivity : AppCompatActivity() {
             imageCapture = ImageCapture.Builder()
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                 .setTargetAspectRatio(AspectRatio.RATIO_4_3)
-                .setJpegQuality(85)
+                .setJpegQuality(95) // Higher quality for better OCR
                 .build()
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
